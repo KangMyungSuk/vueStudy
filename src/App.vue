@@ -1,5 +1,16 @@
 <template>
 
+<div class="black-bg" v-if="모달창열렸니 == true">  <!-- v-if 안에 조건이 참일때면 모달창을 보여줌-->
+  <div class="white-bg">
+    <h4>상세페이지임</h4>
+    <P>상세페이지 내용임</P>
+    <button @click="모달창열렸니 = false">모달창 닫기</button>
+  </div>
+
+</div>
+
+
+
 <div class="menu">
     <!-- 
     일반 사용
@@ -18,7 +29,8 @@
 </div>
   <h1>원룸샾</h1>
   <div>
-    <h4>{{ products[0] }} </h4>
+    <img src="./assets/room0.jpg" class="room-img">
+    <h4 @click="모달창열렸니 = true">{{ products[0] }} </h4>
     <p>{{ prices[0] }} 만원</p>
     <button @click="신고수[0]++">허위매물신고</button> 
     <span>신고 수 : {{ 신고수[0] }}</span>
@@ -40,6 +52,7 @@
 
 
   <div>
+    <img src="./assets/room1.jpg" class="room-img">
     <h4>{{ products[1] }} </h4>
     <p>{{ prices[1] }} 만원</p>
     <button @click="신고수[1]++">허위매물신고</button> 
@@ -47,6 +60,7 @@
   </div>
 
   <div>
+    <img src="./assets/room2.jpg" class="room-img">
     <h4>{{ products[2] }} </h4>
     <p>{{ prices[2] }} 만원</p>
     <button @click="신고수[2]++">허위매물신고</button> 
@@ -61,7 +75,7 @@
 export default {
   name: 'App',
   data(){
-    return { 
+    return {    // 데이터 저장공간을 vue에서 state라고 한다 - 상태(UI  상태를 저장할수 있음)
       // price1 : 80, //실시간 자동 렌더링 쓰려면 // 웹/앱 변동될때 부드럽게 변동 전환
       // price2 : 70, // 속성은 :, 변수 {{ }}
       // price3 : 90,
@@ -69,6 +83,16 @@ export default {
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
       신고수 : [0, 0, 0],
       메뉴들 : ['Home', 'Shop', 'About'],
+
+
+      // 5강 동적 UI  만드는 법
+      //0. html로 UI를 디자인 해두고 CSS까지 넣어둠 => 2가지 스탭으로 진행
+      //1. ui의 현재 상태를 데이터로 저장해둠(열렸니 true/false)
+      모달창열렸니 : false, 
+      //2. 데이터에 따라 UI가 어떻게 보일지 작성( v-if 로 조작)
+      // false 일때는 안보임, true 일때는 보임
+
+
     }
   },
 
@@ -92,6 +116,7 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -111,6 +136,34 @@ export default {
   color: white;
   padding: 10px;
 
+}
+
+body {
+  margin : 0
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.black-bg {
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  position:fixed;
+  padding: 20px;
+}
+
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding:20px;
+}
+.room-img {
+
+  width: 100%;
+  margin-top: 40px;
 }
 
 </style>
